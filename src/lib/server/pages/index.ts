@@ -1,33 +1,62 @@
 import { delay } from "$lib";
-import { dummyPage } from "./examples";
+import { testPage } from "./examples";
 
 export interface Page {
+    data: PageData;
     markdown: string;
+}
+
+export interface PageData {
+    pageId: string;
+    title: string;
 }
 
 export async function getPage(userId: string, pageId: string) : Promise<Page | null> {
     await delay(2000);
 
-    if (userId === "1" && pageId === "1") {
-        const page: Page = {
-            markdown: dummyPage
-        };
+    if (userId === "1") {
+        if (pageId === "1") {
+            const page: Page = {
+                data: {
+                    pageId: "1",
+                    title: "Test Page 1"
+                },
+                markdown: testPage
+            };
+            return page;
+        }
 
-        return page;
+        if (pageId === "2") {
+            const page: Page = {
+                data: {
+                    pageId: "1",
+                    title: "Test Page 2"
+                },
+                markdown: testPage
+            };
+            return page;
+        }
+        
     }
 
     return null;
 }
 
-export async function getPagesForUser(userId: string) : Promise<Page[]> {
+export async function getPageDataForUser(userId: string) : Promise<PageData[]> {
     await delay(2000);
 
     if (userId === "1") {
-        const page: Page = {
-            markdown: dummyPage
+        const pageData1: PageData = {
+            pageId: "1",
+            title: "Test Page 1"
         };
 
-        return [page];
+        const pageData2: PageData = {
+            pageId: "2",
+            title: "Test Page 2"
+        };
+
+        return [pageData1, pageData2];
     }
 
     return [];
