@@ -3,17 +3,22 @@ import type { PageServerLoad } from "./$types";
 import { getPage } from "$lib/server/pages";
 
 export const load: PageServerLoad = async ({ params }) => {
-    // Load the raw Markdown on the server.
-    const page = await getPage(params.userId, params.pageId);
+    return {
+        streamed: {
+            markdown: getMarkdown(params.userId, params.pageId)
+        }
+    };
+};
+
+const getMarkdown = async (userId: string, pageId: string): Promise<string> => {
+    const page = await getPage(userId, pageId);
 
     if (!page)
     {
         throw error(404, {
-            message: `The page ${params.userId}/${params.pageId} was not found.`,
+            message: `The page ${userId}/${pageId} was not found.`,
           });
     }
 
-    return {
-        markdown: page.markdown
-    };
-};
+    return page.markdown;
+}
