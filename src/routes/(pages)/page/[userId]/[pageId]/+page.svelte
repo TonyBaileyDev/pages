@@ -3,22 +3,16 @@
     export let data;
 </script>
 
-{#await data.streamed.html}
-	<p>Loading...</p>
-{:then html}
-    {@html html}
+{@html data.html}
 
-    <hr />
-    <div class="footer">
-        <p>This page is provided by <a href="/">{Strings.AppName}</a>.</p>
-        <a href="/">Report this page</a>
-    </div>
+<hr />
+<div class="footer">
+    <p>This page is provided by <a href="/">{Strings.AppName}</a>.</p>
+    <a href="/">Report this page</a>
+</div>
 
-    <style>
-        .footer {
-            color: gray;
-        }
-    </style>
-{:catch error}
-    <p>{error.message}</p>
-{/await}
+<style>
+    .footer {
+        color: gray;
+    }
+</style>
