@@ -42,6 +42,23 @@ export async function getPage(userId: string, pageId: string) : Promise<Page | n
     return null;
 }
 
+export async function getDefaultPage(userId: string) : Promise<Page | null> {
+    await delay(2000);
+
+    if (userId === "1") {
+        const page: Page = {
+            data: {
+                pageId: "1",
+                title: "Test Page 1"
+            },
+            markdown: testPage
+        };
+        return page;
+    }
+
+    return null;
+}
+
 export async function getPageDataForUser(userId: string) : Promise<PageData[]> {
     await delay(2000);
 
